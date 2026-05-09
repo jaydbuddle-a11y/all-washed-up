@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>All Washed Up – Cars, Utes & Bins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0A2540;
+    --blue:   #29B0D4;
+    --aqua:   #7ADCF5;
+    --orange: #FF6B35;
+    --foam:   #F5F9FF;
+    --white:  #FFFFFF;
+    --gray:   #6B7A8D;
+    --light:  #E8F4FB;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--foam);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10, 37, 64, 0.96);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: var(--white);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-drop {
+    width: 22px; height: 28px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--aqua);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--orange);
+    color: var(--white) !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 50px;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    transition: opacity .2s !important;
+  }
+  .nav-cta:hover { opacity: 0.88; color: var(--white) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bubbles { position: absolute; inset: 0; pointer-events: none; }
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--blue);
+    opacity: 0.08;
+    animation: rise linear infinite;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) scale(1); opacity: 0.08; }
+    100% { transform: translateY(-110vh) scale(1.3); opacity: 0; }
+  }
+  .hero-drop {
+    width: 80px; margin-bottom: 1.5rem;
+    animation: dropIn .8s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  @keyframes dropIn {
+    from { transform: translateY(-40px) scale(0.6); opacity: 0; }
+    to   { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  .hero h1 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    color: var(--white);
+    line-height: 1.05;
+    animation: fadeUp .8s .2s both;
+  }
+  .hero h1 span { color: var(--blue); }
+  .hero-wave {
+    width: min(480px, 80%);
+    height: 6px;
+    margin: 1rem auto;
+    animation: fadeUp .8s .35s both;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--aqua);
+    margin-bottom: 0.5rem;
+    letter-spacing: .15em;
+    font-weight: 600;
+    animation: fadeUp .8s .4s both;
+  }
+  .hero-tagline {
+    color: rgba(122,220,245,0.75);
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    animation: fadeUp .8s .5s both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp .8s .6s both;
+  }
+  .btn-primary {
+    background: var(--orange);
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform .2s, opacity .2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); opacity: .9; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    border: 2px solid rgba(122,220,245,0.5);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-secondary:hover { border-color: var(--aqua); background: rgba(122,220,245,0.08); }
+  @keyframes fadeUp {
+    from { transform: translateY(24px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    color: rgba(122,220,245,0.5);
+    font-size: 0.8rem; letter-spacing: .1em;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    animation: fadeUp 1s 1.2s both;
+  }
+  .scroll-arrow { animation: bounce 1.5s infinite; }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(6px); }
+  }
+
+  /* ── SERVICES ── */
+  .section { padding: 90px 5%; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    background: var(--light);
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: .15em;
+    padding: 0.35rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .section-lead {
+    color: var(--gray);
+    font-size: 1.05rem;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1.5px solid var(--light);
+    transition: transform .25s, box-shadow .25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--blue);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s;
+  }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(41,176,212,0.12); }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-icon {
+    width: 56px; height: 56px;
+    background: var(--light);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  .service-icon svg { width: 28px; height: 28px; }
+  .service-card h3 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+  }
+  .service-card p { color: var(--gray); line-height: 1.6; font-size: 0.95rem; }
+  .service-price {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--navy);
+  }
+  .service-price span { font-size: 0.85rem; font-weight: 500; color: var(--gray); }
+
+  /* ── WHY US ── */
+  .why { background: var(--navy); }
+  .why .section-title { color: var(--white); }
+  .why .section-tag { background: rgba(41,176,212,0.15); }
+  .why .section-lead { color: var(--aqua); opacity: .75; }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+  .why-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(122,220,245,0.15);
+    border-radius: 16px;
+    padding: 1.75rem;
+  }
+  .why-num {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .why-card h4 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+  .why-card p { color: rgba(122,220,245,0.65); font-size: 0.9rem; line-height: 1.55; }
+
+  /* ── HOW IT WORKS ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    position: relative;
+  }
+  .step { text-align: center; }
+  .step-num {
+    width: 52px; height: 52px;
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    margin: 0 auto 1rem;
+  }
+  .step h4 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+  .step p { color: var(--gray); font-size: 0.9rem; line-height: 1.6; }
+
+  /* ── CONTACT ── */
+  .contact { background: var(--navy); }
+  .contact .section-title { color: var(--white); }
+  .contact .section-tag { background: rgba(41,176,212,0.15); }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    width: 100%;
+  }
+  .contact-info { color: rgba(122,220,245,0.8); }
+  .contact-info p { line-height: 1.8; font-size: 1rem; margin-bottom: 1.5rem; }
+  .contact-detail {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1rem;
+    color: var(--white);
+    font-size: 1rem;
+  }
+  .contact-detail .icon-wrap {
+    width: 40px; height: 40px;
+    background: rgba(41,176,212,0.15);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-detail svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .contact-form {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(122,220,245,0.15);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--aqua);
+    margin-bottom: 0.4rem;
+    letter-spacing: .05em;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(122,220,245,0.2);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color .2s;
+    outline: none;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+  .form-group select option { background: var(--navy); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--blue); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .btn-submit {
+    width: 100%;
+    background: var(--orange);
+    color: var(--white);
+    padding: 0.9rem;
+    border-radius: 50px;
+    border: none;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity .2s, transform .2s;
+  }
+  .btn-submit:hover { opacity: .88; transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060F1A;
+    color: rgba(122,220,245,0.5);
+    text-align: center;
+    padding: 2rem 5%;
+    font-size: 0.85rem;
+  }
+  footer strong { color: var(--blue); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.5rem; }
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .hubspot-form-wrap .hs-form-frame {
+      min-height: 560px;
+    }
+    .section { padding: 60px 5%; }
+  }
+
+  /* ── HUBSPOT FORM OVERRIDES ── */
+  .hubspot-form-wrap {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .hubspot-form-wrap .hs-form-frame {
+    width: 100% !important;
+    min-height: 480px;
+    border: none !important;
+    flex: 1;
+  }
+</style>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/20714191.js"></script>
+<!-- End of HubSpot Embed Code -->
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg class="nav-drop" viewBox="0 0 40 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 2 Q4 18 4 30 Q4 44 20 50 Q36 44 36 30 Q36 18 20 2Z" fill="#29B0D4"/>
+      <ellipse cx="14" cy="26" rx="4" ry="7" fill="white" opacity="0.35"/>
+    </svg>
+    All Washed Up
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bubbles" id="bubbles"></div>
+
+  <svg class="hero-drop" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40 4 Q8 34 8 56 Q8 84 40 96 Q72 84 72 56 Q72 34 40 4Z" fill="#29B0D4"/>
+    <ellipse cx="27" cy="48" rx="8" ry="14" fill="white" opacity="0.3"/>
+  </svg>
+
+  <h1>All <span>Washed</span> Up.</h1>
+
+  <svg class="hero-wave" viewBox="0 0 480 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 3 Q30 0 60 3 Q90 6 120 3 Q150 0 180 3 Q210 6 240 3 Q270 0 300 3 Q330 6 360 3 Q390 0 420 3 Q450 6 480 3" stroke="#29B0D4" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+
+  <p class="hero-sub">Cars &nbsp;·&nbsp; Utes &nbsp;·&nbsp; Bins</p>
+  <p class="hero-tagline">Your neighbourhood's cleaning crew</p>
+
+  <div class="hero-btns">
+    <a href="#contact" class="btn-primary">Get a Free Quote</a>
+    <a href="#services" class="btn-secondary">See Services</a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <span class="scroll-arrow">↓</span>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-inner">
+    <span class="section-tag">WHAT WE DO</span>
+    <h2 class="section-title">Sparkling clean,<br/>every time</h2>
+    <p class="section-lead">We come to you — no need to drive anywhere. We wash cars, utes and wheelie bins right at your home or business.</p>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 28 28" fill="none" stroke="#29B0D4" stroke-width="2" stroke-linecap="round">
+            <rect x="2" y="9" width="24" height="12" rx="3"/>
+            <path d="M6 9L9 4h10l3 5"/>
+            <circle cx="8" cy="21" r="3"/>
+            <circle cx="20" cy="21" r="3"/>
+          </svg>
+        </div>
+        <h3>Car Wash</h3>
+        <p>Full exterior wash, wheels, windows and a rinse that leaves your car gleaming. We bring all the gear.</p>
+        <div class="service-price">From $20 <span>per wash</span></div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 28 28" fill="none" stroke="#29B0D4" stroke-width="2" stroke-linecap="round">
+            <rect x="2" y="10" width="24" height="11" rx="3"/>
+            <path d="M2 14h24"/>
+            <path d="M6 10L8 5h12l2 5"/>
+            <circle cx="7" cy="21" r="2.5"/>
+            <circle cx="21" cy="21" r="2.5"/>
+            <rect x="18" y="5" width="8" height="5" rx="1"/>
+          </svg>
+        </div>
+        <h3>Ute Wash</h3>
+        <p>Utes and 4WDs get a thorough clean including the tray, undercarriage spray and tyre shine.</p>
+        <div class="service-price">From $30 <span>per wash</span></div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 28 28" fill="none" stroke="#29B0D4" stroke-width="2" stroke-linecap="round">
+            <rect x="7" y="8" width="14" height="17" rx="2"/>
+            <rect x="5" y="5" width="18" height="5" rx="1.5"/>
+            <path d="M11 5 Q14 1 17 5"/>
+            <line x1="11" y1="13" x2="11" y2="21"/>
+            <line x1="14" y1="13" x2="14" y2="21"/>
+            <line x1="17" y1="13" x2="17" y2="21"/>
+          </svg>
+        </div>
+        <h3>Bin Wash</h3>
+        <p>We clean and deodorise your wheelie bins inside and out — because bin day shouldn't smell like bin week.</p>
+        <div class="service-price">From $10 <span>per bin</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section why" id="why">
+  <div class="section-inner">
+    <span class="section-tag">WHY ALL WASHED UP</span>
+    <h2 class="section-title">We show up. We wash up.<br/>Simple as that.</h2>
+    <p class="section-lead">Locally run, reliable, and proud of our neighbourhood.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-num">100%</div>
+        <h4>Local & Trusted</h4>
+        <p>Born and raised in the neighbourhood. We're your neighbours — not a big corporate chain.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">0</div>
+        <h4>Hassle for You</h4>
+        <p>We come to your place. No driving, no waiting. Just step outside and it's done.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">✓</div>
+        <h4>Eco-Friendly Products</h4>
+        <p>We use water-efficient, biodegradable soaps that are safe for your driveway and the environment.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">★★★★★</div>
+        <h4>Satisfaction Guaranteed</h4>
+        <p>Not happy with the result? We'll come back and make it right — no questions asked.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="section-inner">
+    <span class="section-tag">HOW IT WORKS</span>
+    <h2 class="section-title">Ready in three easy steps</h2>
+    <p class="section-lead">Getting your car or bins sparkling has never been easier.</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Get a Quote</h4>
+        <p>Fill in the form below or send us an email. Tell us what needs washing and we'll get back to you with a price fast.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Pick a Time</h4>
+        <p>Choose a weekday evening (4–6pm) or a weekend time that suits you. Saturdays and Sundays are by appointment.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>We Show Up & Wash Up</h4>
+        <p>We arrive with all the gear. You don't need to do a thing — just enjoy the results.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <div class="section-inner">
+    <span class="section-tag">GET IN TOUCH</span>
+    <h2 class="section-title">Get a free quote today</h2>
+
+    <div class="contact-layout">
+      <div class="contact-info">
+        <p>Ready for a clean? Drop us a message and we'll get back to you within the hour — usually faster.</p>
+
+        <div class="contact-detail">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          washedupall@gmail.com
+        </div>
+
+        <div class="contact-detail">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          Mon – Fri, 4pm – 6pm &nbsp;·&nbsp; Weekends by appointment
+        </div>
+      </div>
+
+      <!-- HubSpot Form -->
+      <div class="hubspot-form-wrap">
+        <div class="hs-form-frame" data-region="na1" data-form-id="b9210e8c-fbd5-4dcc-b796-6044c391aedb" data-portal-id="20714191"></div>
+        <script src="https://js.hsforms.net/forms/embed/20714191.js"></script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 <strong>All Washed Up</strong>. Your neighbourhood's cleaning crew. &nbsp;·&nbsp; Made with ☀️ in the neighbourhood.</p>
+</footer>
+
+<script>
+  // Bubbles
+  const container = document.getElementById('bubbles');
+  for (let i = 0; i < 18; i++) {
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const size = 20 + Math.random() * 80;
+    b.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      bottom:${-size}px;
+      animation-duration:${8 + Math.random()*14}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    container.appendChild(b);
+  }
+
+
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .why-card, .step, .contact-detail').forEach(el => {
+    el.style.cssText += 'opacity:0; transform:translateY(24px); transition: opacity .6s, transform .6s;';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
